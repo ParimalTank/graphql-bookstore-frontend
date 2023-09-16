@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+
+// Components
+import BookList from "./components/BookList";
+import { AddBook } from "./components/AddBook";
+
+// Apollo Client Setup
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql", // This is declare the main end point of the application
+  cache: new InMemoryCache(), // cache is an instance of InMemoryCache, which Apollo Client uses to cache query results after fetching them.
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <div id="main">
+        <h1>Parimal's Reading Book</h1>
+        <BookList />
+        <AddBook />
+      </div>
+    </ApolloProvider>
   );
 }
 
