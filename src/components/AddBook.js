@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { getAuthorsQuery } from "../queries/queries";
+import {
+  addBookMutation,
+  getAuthorsQuery,
+  getBooksQuery,
+} from "../queries/queries";
 // There is 2 steps are there
 // 1) Construct the query
 // 2) Binding with components  we can also get the data with props by using the old methods
@@ -14,11 +18,23 @@ export const AddBook = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("e: ", e);
-    console.log("This is Form Data", formData);
+
+    addBook({
+      variables: {
+        name: formData.bookname,
+        genre: formData.genre,
+        authorId: formData.authorId,
+      },
+      refetchQueries: [{ query: getBooksQuery }], // after adding book that is not visible before refresh to solve that issues used refetch queries
+    });
   };
 
   const { loading, error, data } = useQuery(getAuthorsQuery);
+
+  const [
+    addBook,
+    { loading: addBookLoading, error: addBookError, data: addBookData },
+  ] = useMutation(addBookMutation);
 
   const displayAuthors = () => {
     if (loading) return <option disabled>Loading...</option>;
