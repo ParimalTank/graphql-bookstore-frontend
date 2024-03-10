@@ -63,6 +63,7 @@ export const AddBook = () => {
             onChange={(e) =>
               setFormData({ ...formData, bookname: e.target.value })
             }
+            required
           />
         </div>
 
@@ -74,6 +75,7 @@ export const AddBook = () => {
             onChange={(e) =>
               setFormData({ ...formData, genre: e.target.value })
             }
+            required
           />
         </div>
 
@@ -81,11 +83,13 @@ export const AddBook = () => {
           <label>Author: </label>
           <select
             name="authorId"
+            id="authorId"
             onChange={(e) =>
               setFormData({ ...formData, authorId: e.target.value })
             }
+            required
           >
-            <option>select author</option>
+            <option value="">select author</option>
             {displayAuthors()}
           </select>
         </div>

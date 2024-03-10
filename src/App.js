@@ -6,7 +6,7 @@ import { AddBook } from "./components/AddBook";
 
 // Apollo Client Setup
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql", // This is declare the main end point of the application
+  uri: process.env.REACT_APP_BACKEND_BASE_URL_DEVELOPMENT, // This is declare the main end point of the application
   cache: new InMemoryCache(), // cache is an instance of InMemoryCache, which Apollo Client uses to cache query results after fetching them.
 });
 
